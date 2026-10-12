@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/pictures/branding/logo-horizontal.png" alt="Bob's Hands" width="520">
+</p>
+
 # Bob's Hands
 
 > **Les mains et les yeux de celles et ceux qui ne peuvent pas toucher leur téléphone.**
