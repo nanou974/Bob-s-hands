@@ -47,6 +47,7 @@ Le détail est dans [FOUNDING_PRINCIPLES.md](FOUNDING_PRINCIPLES.md).
 |---|---|
 | [FOUNDING_PRINCIPLES.md](FOUNDING_PRINCIPLES.md) | Les principes fondateurs, non négociables |
 | [ROADMAP.md](ROADMAP.md) | La feuille de route, par petits pas |
+| [VISUAL_IDENTITY.md](VISUAL_IDENTITY.md) | L'identité visuelle : logo, police, couleurs, et le pourquoi du comment |
 | [docs/PUBLIC_ET_BESOINS.md](docs/PUBLIC_ET_BESOINS.md) | Pour qui, et pour quels besoins réels |
 | [docs/PERSONNALITE.md](docs/PERSONNALITE.md) | Le caractère de Bob, l'humour, les jeux, le mimétisme |
 | [docs/HUMEUR_ET_SIGNAUX.md](docs/HUMEUR_ET_SIGNAUX.md) | Comment Bob perçoit l'humeur (mots, ton, rires, soupirs) |
