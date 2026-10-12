@@ -7,6 +7,7 @@
 | `logo-monogramme.svg` / `.png` (1024 px) / `-512.png` | Symbole seul signé **BH** : icône d'application, photo de profil, favicon |
 | `logo-horizontal.svg` / `.png` | Miroir + nom à droite : bannière GitHub, en-têtes, signatures |
 | `logo-vertical.svg` / `.png` | Miroir + nom en dessous : écran de démarrage, affiche, fiche Play Store |
+| `brand-board.svg` / `.png` | Planche d'identité visuelle : les trois logos, la police, les couleurs |
 
 ## Ce que dit le logo
 
@@ -38,6 +39,7 @@ Idée originale et croquis : Gianny (Nanou).
 Les logos sont générés par code, dans `tools/branding/` :
 - `logo_v5.py` produit le logo officiel (série 5, le miroir) ;
 - `logo_v3.py` contient le personnage (visage, yeux, téléphone, mains) ;
-- `logo_v4.py` contient le verre du miroir et le cadre.
+- `logo_v4.py` contient le verre du miroir et le cadre ;
+- `brand_board.py` produit la planche d'identité visuelle.
 
 Les dossiers `propositions*/` gardent l'historique des pistes explorées.
