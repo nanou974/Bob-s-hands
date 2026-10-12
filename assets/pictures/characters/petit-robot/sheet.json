@@ -1,0 +1,216 @@
+{
+  "personnage": "petit-robot",
+  "image": "sheet.png",
+  "taille_case": 256,
+  "colonnes": 6,
+  "poses": {
+    "repos": {
+      "numero": 1,
+      "nom": "Repos",
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "veille": {
+      "numero": 2,
+      "nom": "Veille douce",
+      "x": 256,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "endormi": {
+      "numero": 3,
+      "nom": "Endormi",
+      "x": 512,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "ecoute": {
+      "numero": 4,
+      "nom": "Écoute",
+      "x": 768,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "parle": {
+      "numero": 5,
+      "nom": "Parle",
+      "x": 1024,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "reflechit": {
+      "numero": 6,
+      "nom": "Réfléchit",
+      "x": 1280,
+      "y": 0,
+      "w": 256,
+      "h": 256
+    },
+    "content": {
+      "numero": 7,
+      "nom": "Content",
+      "x": 0,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "joyeux": {
+      "numero": 8,
+      "nom": "Joyeux, complice",
+      "x": 256,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "rit": {
+      "numero": 9,
+      "nom": "Rit avec toi",
+      "x": 512,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "triste": {
+      "numero": 10,
+      "nom": "Triste, peiné",
+      "x": 768,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "surpris": {
+      "numero": 11,
+      "nom": "Surpris, intrigué",
+      "x": 1024,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "taquin": {
+      "numero": 12,
+      "nom": "Taquin, malicieux",
+      "x": 1280,
+      "y": 256,
+      "w": 256,
+      "h": 256
+    },
+    "gene": {
+      "numero": 13,
+      "nom": "Désolé, gêné",
+      "x": 0,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "attendri": {
+      "numero": 14,
+      "nom": "Attendri, doux",
+      "x": 256,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "concentre": {
+      "numero": 15,
+      "nom": "Concentré, agit",
+      "x": 512,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "satisfait": {
+      "numero": 16,
+      "nom": "Satisfait, réussite",
+      "x": 768,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "confirmation": {
+      "numero": 17,
+      "nom": "Demande confirmation",
+      "x": 1024,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "salut": {
+      "numero": 18,
+      "nom": "Salue",
+      "x": 1280,
+      "y": 512,
+      "w": 256,
+      "h": 256
+    },
+    "crie": {
+      "numero": 19,
+      "nom": "Parle fort",
+      "x": 0,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "chuchote": {
+      "numero": 20,
+      "nom": "Chuchote",
+      "x": 256,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "tend_oreille": {
+      "numero": 21,
+      "nom": "Tend l'oreille",
+      "x": 512,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "tete_face": {
+      "numero": 22,
+      "nom": "Tête de face",
+      "x": 768,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "tete_gauche": {
+      "numero": 23,
+      "nom": "Tête à gauche",
+      "x": 1024,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "tete_droite": {
+      "numero": 24,
+      "nom": "Tête à droite",
+      "x": 1280,
+      "y": 768,
+      "w": 256,
+      "h": 256
+    },
+    "tete_haut": {
+      "numero": 25,
+      "nom": "Tête en haut",
+      "x": 0,
+      "y": 1024,
+      "w": 256,
+      "h": 256
+    },
+    "tete_bas": {
+      "numero": 26,
+      "nom": "Tête en bas",
+      "x": 256,
+      "y": 1024,
+      "w": 256,
+      "h": 256
+    }
+  }
+}
