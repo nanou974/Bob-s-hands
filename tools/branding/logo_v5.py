@@ -93,6 +93,19 @@ def lockup_v(sym):
                   f'font-size="120" fill="{HOPE}">Hands</text>')
 
 
+def monogram(sym):
+    """Le symbole seul, signé « BH » dans le coin inférieur droit."""
+    inner = sym.split(">", 1)[1].rsplit("</svg>", 1)[0]
+    def letter(x, ch, color):
+        t = (f'x="{x}" y="500" text-anchor="end" font-family="{FONT}" '
+             f'font-weight="600" font-size="104"')
+        return (f'<text {t} fill="#FFFFFF" stroke="#FFFFFF" stroke-width="16" stroke-linejoin="round">{ch}</text>'
+                f'<text {t} fill="{color}">{ch}</text>')
+    halo = ""
+    letters = letter(430, "B", NAVY) + letter(506, "H", HOPE)
+    return V4.svg(512, 512, inner + halo + letters)
+
+
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     items = [("1 · Ovale", "ovale", mirror("ovale")),
@@ -104,6 +117,9 @@ def build():
         full = lockup_h(sym)
         (OUT / f"{label[0]}-{slug}-logo-complet.svg").write_text(full, encoding="utf-8")
         cairosvg.svg2png(bytestring=full.encode(), write_to=str(OUT / f"{label[0]}-{slug}-logo-complet.png"))
+    mono = monogram(items[0][2])
+    (OUT / "1-ovale-monogramme.svg").write_text(mono, encoding="utf-8")
+    cairosvg.svg2png(bytestring=mono.encode(), write_to=str(OUT / "1-ovale-monogramme.png"))
     vert = lockup_v(items[0][2])
     (OUT / "1-ovale-logo-vertical.svg").write_text(vert, encoding="utf-8")
     cairosvg.svg2png(bytestring=vert.encode(), write_to=str(OUT / "1-ovale-logo-vertical.png"))
