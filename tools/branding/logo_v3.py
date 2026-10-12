@@ -150,10 +150,15 @@ def eyes(line, white, iris):
     """Yeux en amande, le regard baissé vers l'écran."""
     out = ""
     for x in (214, 298):
-        out += (f'<path d="M{x - 22} 172 Q{x} 156 {x + 22} 172 Q{x} 184 {x - 22} 172 Z" fill="{white}" '
-                f'stroke="{line}" stroke-width="5" stroke-linejoin="round"/>'
-                f'<circle cx="{x}" cy="176" r="8" fill="{iris}"/>'
-                f'<circle cx="{x + 3}" cy="173" r="2.5" fill="#FFFFFF"/>')
+        shape = f"M{x - 22} 172 Q{x} 156 {x + 22} 172 Q{x} 184 {x - 22} 172 Z"
+        # La pupille est découpée par la forme de l'œil : elle ne dépasse jamais
+        # le bord des paupières, même quand le regard est baissé.
+        out += (f'<clipPath id="oeil-{x}"><path d="{shape}"/></clipPath>'
+                f'<path d="{shape}" fill="{white}"/>'
+                f'<g clip-path="url(#oeil-{x})">'
+                f'<circle cx="{x}" cy="174" r="8" fill="{iris}"/>'
+                f'<circle cx="{x + 3}" cy="171" r="2.5" fill="#FFFFFF"/></g>'
+                f'<path d="{shape}" fill="none" stroke="{line}" stroke-width="5" stroke-linejoin="round"/>')
     return out
 
 
