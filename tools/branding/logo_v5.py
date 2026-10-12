@@ -50,8 +50,8 @@ def mirror(shape, glow=False):
     if shape == "ovale":
         # Le miroir occupe presque toute la hauteur de l'image
         cx, cy, rx, ry = 256, 256, 196, 246
-        place = "translate(0 31) scale(1.0)"
-        front_scale, front_dx, front_dy = 1.15, -38, -43
+        place = "translate(-77 -48) scale(1.30)"
+        front_scale, front_dx, front_dy = 1.15, -38, -70
     else:
         cx, cy, rx, ry = 256, 214, 196, 196
         place = "translate(40 40) scale(0.84)"
