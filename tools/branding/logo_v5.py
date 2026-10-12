@@ -3,7 +3,8 @@
 Logo Bob's Hands — série 5 : le miroir, mains et téléphone au premier plan.
 
 Le téléphone et les mains sont réels, devant le miroir. Dans le miroir, il n'y
-a que le visage : le reflet de l'utilisateur, qui regarde le téléphone.
+a que le visage : le reflet de l'utilisateur, qui regarde le téléphone. Le
+téléphone cache le bas du visage, seuls les yeux restent visibles.
 Bob est ce reflet, et ses mains sortent du miroir pour tenir le téléphone.
 
 Variantes :
@@ -49,9 +50,11 @@ def mirror(shape, glow=False):
     if shape == "ovale":
         cx, cy, rx, ry = 256, 206, 156, 196
         place = "translate(50 26) scale(0.80)"
+        front_dy = -62
     else:
         cx, cy, rx, ry = 256, 214, 196, 196
         place = "translate(40 40) scale(0.84)"
+        front_dy = -44
     glass = (f'<clipPath id="glace"><ellipse cx="{cx}" cy="{cy}" rx="{rx - 20}" ry="{ry - 20}"/></clipPath>'
              f'<g clip-path="url(#glace)">'
              f'<rect width="512" height="512" fill="url(#fond-miroir)"/>'
@@ -60,8 +63,9 @@ def mirror(shape, glow=False):
     frame = (f'<ellipse cx="{cx}" cy="{cy}" rx="{rx - 10}" ry="{ry - 10}" fill="none" stroke="url(#cadre)" stroke-width="20"/>'
              f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="none" stroke="{NAVY}" stroke-width="8"/>'
              f'<ellipse cx="{cx}" cy="{cy}" rx="{rx - 20}" ry="{ry - 20}" fill="none" stroke="{NAVY}" stroke-width="6"/>')
-    # Premier plan, légèrement agrandi et descendu pour bien sortir du cadre
-    front = f'<g transform="translate(-26 28) scale(1.10)">{foreground()}</g>'
+    # Premier plan, légèrement agrandi : le téléphone cache le bas du visage,
+    # seuls les yeux dépassent au-dessus de lui
+    front = f'<g transform="translate(-26 {front_dy}) scale(1.10)">{foreground()}</g>'
     body = (f'<clipPath id="cadre-total"><rect width="512" height="512"/></clipPath>'
             f'<g clip-path="url(#cadre-total)">{glass}{frame}{front}</g>')
     return V4.svg(512, 512, body)
