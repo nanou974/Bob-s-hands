@@ -73,6 +73,26 @@ def mirror(shape, glow=False):
     return V4.svg(512, 512, body)
 
 
+def lockup_h(sym):
+    """Logo complet horizontal : miroir à gauche, nom à droite, mise en page serrée."""
+    inner = sym.split(">", 1)[1].rsplit("</svg>", 1)[0]
+    return V4.svg(840, 400,
+                  f'<g transform="translate(0 6) scale(0.76)">{inner}</g>'
+                  f'<text x="376" y="196" font-family="{FONT}" font-weight="600" font-size="132" fill="{NAVY}">Bob\'s</text>'
+                  f'<text x="376" y="320" font-family="{FONT}" font-weight="600" font-size="132" fill="{HOPE}">Hands</text>')
+
+
+def lockup_v(sym):
+    """Logo complet vertical : miroir au-dessus, nom en dessous."""
+    inner = sym.split(">", 1)[1].rsplit("</svg>", 1)[0]
+    return V4.svg(640, 820,
+                  f'<g transform="translate(64 0) scale(1.0)">{inner}</g>'
+                  f'<text x="320" y="652" text-anchor="middle" font-family="{FONT}" font-weight="600" '
+                  f'font-size="120" fill="{NAVY}">Bob\'s</text>'
+                  f'<text x="320" y="778" text-anchor="middle" font-family="{FONT}" font-weight="600" '
+                  f'font-size="120" fill="{HOPE}">Hands</text>')
+
+
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     items = [("1 · Ovale", "ovale", mirror("ovale")),
@@ -81,9 +101,12 @@ def build():
     for label, slug, sym in items:
         (OUT / f"{label[0]}-{slug}-symbole.svg").write_text(sym, encoding="utf-8")
         cairosvg.svg2png(bytestring=sym.encode(), write_to=str(OUT / f"{label[0]}-{slug}-symbole.png"))
-        full = V4.lockup(sym)
+        full = lockup_h(sym)
         (OUT / f"{label[0]}-{slug}-logo-complet.svg").write_text(full, encoding="utf-8")
         cairosvg.svg2png(bytestring=full.encode(), write_to=str(OUT / f"{label[0]}-{slug}-logo-complet.png"))
+    vert = lockup_v(items[0][2])
+    (OUT / "1-ovale-logo-vertical.svg").write_text(vert, encoding="utf-8")
+    cairosvg.svg2png(bytestring=vert.encode(), write_to=str(OUT / "1-ovale-logo-vertical.png"))
     V4.OUT = OUT
     V4.board(items, items[0][2])
     (OUT / "planche-logos-v4.png").rename(OUT / "planche-logos-v5.png")
