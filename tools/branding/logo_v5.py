@@ -48,13 +48,14 @@ def foreground():
 
 def mirror(shape, glow=False):
     if shape == "ovale":
-        cx, cy, rx, ry = 256, 206, 156, 196
-        place = "translate(50 26) scale(0.80)"
-        front_dy = -62
+        # Le miroir occupe presque toute la hauteur de l'image
+        cx, cy, rx, ry = 256, 256, 196, 246
+        place = "translate(0 31) scale(1.0)"
+        front_scale, front_dx, front_dy = 1.15, -38, -43
     else:
         cx, cy, rx, ry = 256, 214, 196, 196
         place = "translate(40 40) scale(0.84)"
-        front_dy = -44
+        front_scale, front_dx, front_dy = 1.10, -26, -44
     glass = (f'<clipPath id="glace"><ellipse cx="{cx}" cy="{cy}" rx="{rx - 20}" ry="{ry - 20}"/></clipPath>'
              f'<g clip-path="url(#glace)">'
              f'<rect width="512" height="512" fill="url(#fond-miroir)"/>'
@@ -65,7 +66,8 @@ def mirror(shape, glow=False):
              f'<ellipse cx="{cx}" cy="{cy}" rx="{rx - 20}" ry="{ry - 20}" fill="none" stroke="{NAVY}" stroke-width="6"/>')
     # Premier plan, légèrement agrandi : le téléphone cache le bas du visage,
     # seuls les yeux dépassent au-dessus de lui
-    front = f'<g transform="translate(-26 {front_dy}) scale(1.10)">{foreground()}</g>'
+    front = (f'<g transform="translate({front_dx} {front_dy}) scale({front_scale})">'
+             f'{foreground()}</g>')
     body = (f'<clipPath id="cadre-total"><rect width="512" height="512"/></clipPath>'
             f'<g clip-path="url(#cadre-total)">{glass}{frame}{front}</g>')
     return V4.svg(512, 512, body)
