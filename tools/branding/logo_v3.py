@@ -2,7 +2,7 @@
 """
 Logo Bob's Hands — série 3, d'après le croquis de Gianny.
 
-La silhouette, c'est Bob. On voit le dos du téléphone : ses yeux regardent
+La silhouette, c'est Bob : un visage humain sans traits distinctifs. On voit le dos du téléphone : ses yeux regardent
 l'écran, ses mains le tiennent et le manipulent. Bob est les yeux et les mains.
 
 Variantes :
@@ -72,15 +72,6 @@ def phone(fill, screen=None, line=None, sw=0):
     return out
 
 
-def screen_glow():
-    """La lumière de l'écran qui éclaire le visage de Bob (côté spectateur)."""
-    return ('<radialGradient id="lueur" cx="256" cy="250" r="150" gradientUnits="userSpaceOnUse">'
-            f'<stop offset="0" stop-color="{SUN_A}" stop-opacity=".75"/>'
-            f'<stop offset="1" stop-color="{SUN_A}" stop-opacity="0"/></radialGradient>'
-            '<clipPath id="tete"><ellipse cx="256" cy="214" rx="124" ry="166"/></clipPath>'
-            '<g clip-path="url(#tete)"><rect x="100" y="80" width="312" height="300" fill="url(#lueur)"/></g>')
-
-
 def phone_back(fill, line, sw):
     """Le dos du téléphone : coque et bloc photo."""
     p = PHONE
@@ -95,7 +86,7 @@ def phone_back(fill, line, sw):
 # Main gauche, vue de dos : la paume serre le bord du téléphone, les quatre
 # doigts s'étendent sur le dos de l'appareil (côté spectateur).
 LEFT_FINGERS = [(176, 356, -14, 44), (176, 388, -6, 50), (176, 420, 2, 50), (176, 452, 10, 42)]
-LEFT_PALM = "M62 512 C70 456 118 380 172 342 L190 350 L196 470 C180 490 168 504 166 512 Z"
+LEFT_PALM = "M112 540 C112 470 136 396 172 342 L190 350 L196 470 C188 494 184 520 184 540 Z"
 
 
 def hand(fill, line, sw, side=-1, w=28):
@@ -117,36 +108,78 @@ def hand(fill, line, sw, side=-1, w=28):
     return f'<g{t}>{outline}{body}{creases}</g>'
 
 
-def eyes(style):
-    if style == "trait":
-        return (head_eyes("#FFFFFF", "#111111", 4)
-                + '<ellipse cx="210" cy="174" rx="8" ry="5" fill="#111111"/>'
-                + '<ellipse cx="302" cy="174" rx="8" ry="5" fill="#111111"/>')
-    glow = "#8CF5E4"
-    return (f'<ellipse cx="208" cy="170" rx="26" ry="12" fill="{glow}" stroke="{NAVY}" stroke-width="6"/>'
-            f'<ellipse cx="304" cy="170" rx="26" ry="12" fill="{glow}" stroke="{NAVY}" stroke-width="6"/>'
-            f'<ellipse cx="210" cy="177" rx="10" ry="6" fill="{NAVY}"/>'
-            f'<ellipse cx="302" cy="177" rx="10" ry="6" fill="{NAVY}"/>')
+# ------------------------------------------------------------------ Bob
+# Un visage humain « Monsieur Tout-le-Monde » : forme simple, aucun trait
+# distinctif. Les yeux regardent l'écran : ils représentent ce que Bob voit.
+HEAD = dict(cx=256, cy=196, rx=104, ry=128)
+SKIN = "#F2D2B6"
+SKIN_SHADE = "#E2B996"
+HAIR = "#6B5444"
+SWEATER = HOPE
 
 
-def head_eyes(fill, line, sw):
-    return (f'<ellipse cx="208" cy="168" rx="24" ry="11" fill="{fill}" stroke="{line}" stroke-width="{sw}"/>'
-            f'<ellipse cx="304" cy="168" rx="24" ry="11" fill="{fill}" stroke="{line}" stroke-width="{sw}"/>')
+def person(fill, line, sw, hair, sweater, shade):
+    h = HEAD
+
+    def ear(x):
+        return (f'<ellipse cx="{x}" cy="{h["cy"] + 4}" rx="18" ry="28" fill="{fill}" '
+                f'stroke="{line}" stroke-width="{sw}"/>')
+
+    l, r, cy = h["cx"] - h["rx"], h["cx"] + h["rx"], h["cy"]
+    hair_path = (f"M{l + 2} {cy - 14} "
+                 f"C{l - 6} {cy - 184} {r + 6} {cy - 184} {r - 2} {cy - 14} "
+                 f"C{r - 30} {cy - 70} {h['cx'] - 10} {cy - 86} {l + 2} {cy - 14} Z")
+    return (
+        # épaules et cou
+        f'<path d="M40 540 C40 430 120 392 200 384 L312 384 C392 392 472 430 472 540 Z" '
+        f'fill="{sweater}" stroke="{line}" stroke-width="{sw}" stroke-linejoin="round"/>'
+        f'<rect x="222" y="300" width="68" height="96" rx="20" fill="{shade}" stroke="{line}" stroke-width="{sw}"/>'
+        # oreilles, tête, cheveux
+        + ear(l + 2) + ear(r - 2)
+        + f'<ellipse cx="{h["cx"]}" cy="{cy}" rx="{h["rx"]}" ry="{h["ry"]}" fill="{fill}" stroke="{line}" stroke-width="{sw}"/>'
+        + f'<path d="{hair_path}" fill="{hair}" stroke="{line}" stroke-width="{sw}" stroke-linejoin="round"/>'
+        # sourcils, nez
+        + f'<path d="M196 150 Q214 142 232 148 M280 148 Q298 142 316 150" fill="none" stroke="{line}" '
+          f'stroke-width="{sw}" stroke-linecap="round"/>'
+        + f'<path d="M256 186 Q250 210 256 218 Q262 222 268 218" fill="none" stroke="{line}" '
+          f'stroke-width="{sw * .8}" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>'
+    )
+
+
+def eyes(line, white, iris):
+    """Yeux en amande, le regard baissé vers l'écran."""
+    out = ""
+    for x in (214, 298):
+        out += (f'<path d="M{x - 22} 172 Q{x} 156 {x + 22} 172 Q{x} 184 {x - 22} 172 Z" fill="{white}" '
+                f'stroke="{line}" stroke-width="5" stroke-linejoin="round"/>'
+                f'<circle cx="{x}" cy="176" r="8" fill="{iris}"/>'
+                f'<circle cx="{x + 3}" cy="173" r="2.5" fill="#FFFFFF"/>')
+    return out
+
+
+def screen_glow():
+    """La lumière de l'écran éclaire le bas du visage."""
+    h = HEAD
+    return ('<radialGradient id="lueur" cx="256" cy="250" r="140" gradientUnits="userSpaceOnUse">'
+            f'<stop offset="0" stop-color="{SUN_A}" stop-opacity=".7"/>'
+            f'<stop offset="1" stop-color="{SUN_A}" stop-opacity="0"/></radialGradient>'
+            f'<clipPath id="tete"><ellipse cx="{h["cx"]}" cy="{h["cy"]}" rx="{h["rx"]}" ry="{h["ry"]}"/></clipPath>'
+            '<g clip-path="url(#tete)"><rect x="100" y="60" width="312" height="300" fill="url(#lueur)"/></g>')
 
 
 def logo(style):
     if style == "trait":
-        face = '<ellipse cx="256" cy="214" rx="124" ry="166" fill="#FFFFFF" stroke="#111111" stroke-width="5"/>'
-        body = (face + eyes(style)
+        body = (person("#FFFFFF", "#111111", 5, "#FFFFFF", "#FFFFFF", "#FFFFFF")
+                + eyes("#111111", "#FFFFFF", "#111111")
                 + phone_back("#3A3A3A", "#111111", 0)
                 + hand("#FFFFFF", "#111111", 4, -1) + hand("#FFFFFF", "#111111", 4, 1))
         return svg(512, 512, body)
-    face = f'<ellipse cx="256" cy="214" rx="124" ry="166" fill="#DCEFFB" stroke="{NAVY}" stroke-width="8"/>'
     glow = screen_glow() if style == "lumiere" else ""
     body = (f'<circle cx="256" cy="256" r="246" fill="{CREAM}"/>'
-            + face + glow + eyes(style)
+            + person(SKIN, NAVY, 7, HAIR, SWEATER, SKIN_SHADE)
+            + glow + eyes(NAVY, "#FFFFFF", "#4A3A2E")
             + phone_back(NAVY, NAVY, 0)
-            + hand("url(#main)", NAVY, 7, -1) + hand("url(#main)", NAVY, 7, 1))
+            + hand(SKIN, NAVY, 7, -1) + hand(SKIN, NAVY, 7, 1))
     body = (f'<clipPath id="rond"><circle cx="256" cy="256" r="246"/></clipPath>'
             f'<g clip-path="url(#rond)">{body}</g>'
             f'<circle cx="256" cy="256" r="246" fill="none" stroke="{NAVY}" stroke-width="10"/>')
